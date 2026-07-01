@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+:root {
+  /* === Color tokens (from approved design system) === */
+  --color-paper: #f7f1e6;       /* warm cream background */
+  --color-paper-alt: #fbf7ef;   /* ivory card surface */
+  --color-ink: #2b2723;         /* charcoal primary text */
+  --color-ink-soft: #5a534c;    /* secondary text */
+  --color-blush: #d9a8ae;       /* dusty pink accent / oversized type */
+  --color-beige: #c9bba3;       /* tape, dividers */
+  --color-taupe: #a8907d;       /* icons, borders */
+  --color-hairline: rgba(43, 39, 35, 0.15);
+  --color-hairline-soft: rgba(43, 39, 35, 0.08);
+
+  /* === Fonts (assigned in layout.tsx via next/font) === */
+  --font-display: var(--font-instrument-serif);
+  --font-heading: var(--font-cormorant);
+  --font-body: var(--font-newsreader);
+  --font-ui: var(--font-manrope);
+  --font-hand: var(--font-caveat);
+
+  /* === Layout rhythm === */
+  --page-gutter: clamp(1.25rem, 5vw, 4rem);
+  --content-max: 72rem;
+}
+
+@theme inline {
+  --color-paper: var(--color-paper);
+  --color-paper-alt: var(--color-paper-alt);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-blush: var(--color-blush);
+  --color-beige: var(--color-beige);
+  --color-taupe: var(--color-taupe);
+
+  --font-display: var(--font-display);
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-ui: var(--font-ui);
+  --font-hand: var(--font-hand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  background: var(--color-paper);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body), serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Visible, accessible focus ring everywhere — journal-appropriate, not browser-default blue */
+:focus-visible {
+  outline: 2px solid var(--color-taupe);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* === Paper grain texture, applied as a fixed overlay in layout === */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
+
+/* === Oversized background editorial word === */
+.oversized-word {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  color: var(--color-blush);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* === Handwritten annotation baseline === */
+.handwritten {
+  font-family: var(--font-hand), cursive;
+  color: var(--color-ink);
+}
+
+/* === Soft paper shadow used by PaperCard and friends === */
+.shadow-paper {
+  box-shadow:
+    0 1px 2px rgba(43, 39, 35, 0.06),
+    0 8px 24px -8px rgba(43, 39, 35, 0.12);
+}
+
+.shadow-paper-lifted {
+  box-shadow:
+    0 2px 4px rgba(43, 39, 35, 0.08),
+    0 18px 38px -12px rgba(43, 39, 35, 0.22);
+}
+
+/* ── Cover page: paper-lift entrance for the whole section ──────────────── */
+@keyframes paper-lift {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-paper-lift {
+  animation: paper-lift 0.9s cubic-bezier(0.22, 0.03, 0.26, 1) both;
+}
+
+/* ── Ink-stroke underline: used on key headings ─────────────────────────── */
+.underline-ink {
+  position: relative;
+  display: inline-block;
+}
+.underline-ink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-blush);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 0.03, 0.26, 1);
+}
+.underline-ink:hover::after,
+.group:hover .underline-ink::after {
+  transform: scaleX(1);
+}
+
+/* ── Font utility shorthand classes used in JSX ─────────────────────────── */
+.font-display  { font-family: var(--font-display), serif; }
+.font-heading  { font-family: var(--font-heading), serif; }
+.font-body     { font-family: var(--font-body), serif; }
+.font-ui       { font-family: var(--font-ui), sans-serif; }
+.font-hand     { font-family: var(--font-hand), cursive; }
+
+/* ── Color shorthand utilities ──────────────────────────────────────────── */
+.text-ink       { color: var(--color-ink); }
+.text-ink-soft  { color: var(--color-ink-soft); }
+.text-blush     { color: var(--color-blush); }
+.text-taupe     { color: var(--color-taupe); }
+.text-paper     { color: var(--color-paper); }
+
+.bg-paper       { background-color: var(--color-paper); }
+.bg-paper-alt   { background-color: var(--color-paper-alt); }
+.bg-blush       { background-color: var(--color-blush); }
+.bg-ink         { background-color: var(--color-ink); }
+
+.border-hairline      { border-color: var(--color-hairline); }
+.border-hairline-soft { border-color: var(--color-hairline-soft); }
