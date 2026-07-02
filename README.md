@@ -66,12 +66,6 @@ lib/
 
 I'm Pearl Rana, a Computer Science and Business Systems undergraduate at Thapar Institute of Engineering and Technology, passionate about building creative, user-friendly web applications and continuously learning modern technologies.
 
-## 📫 Connect With Me
 
-- GitHub: https://github.com/pearlrana
-- LinkedIn: (Add your LinkedIn profile)
-- Portfolio: https://pearlrana.github.io/Portfolio/
-
----
 
 ⭐ If you like this project, feel free to star the repository!
