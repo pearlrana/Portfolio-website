@@ -2,7 +2,7 @@
   "name": "pearl-journal",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://pearlrana.github.io/Portfolio/",
+  "homepage": "https://pearlrana.github.io/pearl-final/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
